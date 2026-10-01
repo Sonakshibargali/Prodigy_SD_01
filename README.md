@@ -42,3 +42,72 @@ Prodigy_SD_01/
     ├── __init__.py
     ├── test_converter.py
     └── test_app.py
+
+## ⚙️ Setup & Run
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Sonakshibargali/Prodigy_SD_01.git
+cd Prodigy_SD_01
+```
+
+### 2. Create a virtual environment
+
+```bash
+python -m venv venv
+```
+
+**Windows:**
+
+```bash
+venv\Scripts\activate
+```
+
+**macOS/Linux:**
+
+```bash
+source venv/bin/activate
+```
+
+### 3. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Run the application
+
+```bash
+python app.py
+```
+
+Open the application in your browser:
+
+```text
+http://127.0.0.1:5000
+```
+
+## 🧪 Run Tests
+
+Run the complete test suite using:
+
+```bash
+python -m unittest discover -s tests
+```
+
+The tests cover temperature conversion logic, input validation, edge cases, and Flask application routes.
+
+## 🔄 Conversion Formulas
+
+- **Celsius → Fahrenheit:** `(C × 9/5) + 32`
+- **Celsius → Kelvin:** `C + 273.15`
+- **Fahrenheit → Celsius:** `(F - 32) × 5/9`
+- **Kelvin → Celsius:** `K - 273.15`
+
+## 👤 Author
+
+**Sonakshi Bargali**
+
+**Prodigy InfoTech — Software Development Internship**  
+**Task 01: Temperature Converter**
