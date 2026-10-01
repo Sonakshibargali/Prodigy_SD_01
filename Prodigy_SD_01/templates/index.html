@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter | Prodigy InfoTech Task 01</title>
+    <meta name="description" content="A clean, professional temperature converter web application built with Python, Flask, HTML, CSS, and JavaScript.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌡️</text></svg>">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="page-container">
+        <!-- Main Card -->
+        <main class="card" id="converter-card">
+            <header class="card-header">
+                <div class="badge">SDE Task 01</div>
+                <h1 class="card-title">Temperature Converter</h1>
+                <p class="card-subtitle">Convert seamlessly between Celsius, Fahrenheit, and Kelvin.</p>
+            </header>
+
+            <!-- Form -->
+            <form id="converter-form" method="POST" action="/" novalidate>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="temp-input" class="form-label">Temperature Value</label>
+                        <input 
+                            type="number" 
+                            step="any" 
+                            id="temp-input" 
+                            name="temperature" 
+                            class="form-control" 
+                            placeholder="e.g. 25 or 98.6" 
+                            value="{{ temperature }}"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="unit-select" class="form-label">Input Unit</label>
+                        <select id="unit-select" name="unit" class="form-control">
+                            <option value="C" {% if unit == 'C' %}selected{% endif %}>Celsius (°C)</option>
+                            <option value="F" {% if unit == 'F' %}selected{% endif %}>Fahrenheit (°F)</option>
+                            <option value="K" {% if unit == 'K' %}selected{% endif %}>Kelvin (K)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" id="convert-btn" class="btn btn-primary">
+                        <span class="btn-text">Convert</span>
+                    </button>
+                    <button type="button" id="clear-btn" class="btn btn-outline">
+                        <span>Clear</span>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Error Banner -->
+            <div 
+                id="error-alert" 
+                class="alert alert-error {% if error %}show{% endif %}" 
+                role="alert" 
+                aria-live="polite"
+            >
+                <span class="alert-icon" aria-hidden="true">⚠️</span>
+                <span id="error-message" class="alert-text">{{ error or '' }}</span>
+            </div>
+
+            <!-- Results Section -->
+            <section 
+                id="results-section" 
+                class="results-section {% if results %}show{% endif %}" 
+                aria-label="Conversion Results"
+            >
+                <div class="results-header">
+                    <span class="results-heading">Converted Temperatures</span>
+                    <span id="input-summary" class="input-summary">
+                        {% if input_formatted is defined and input_symbol is defined %}
+                            From {{ input_formatted }} {{ input_symbol }}
+                        {% endif %}
+                    </span>
+                </div>
+
+                <div class="results-grid" id="results-grid">
+                    {% if results %}
+                        {% for item in results %}
+                            <div class="result-card">
+                                <span class="result-label">{{ item.name }}</span>
+                                <div class="result-value-group">
+                                    <span class="result-value">{{ item.formatted }}</span>
+                                    <span class="result-symbol">{{ item.symbol }}</span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="result-card" id="card-result-1">
+                            <span class="result-label" id="label-result-1">Fahrenheit</span>
+                            <div class="result-value-group">
+                                <span class="result-value" id="val-result-1">--</span>
+                                <span class="result-symbol" id="sym-result-1">°F</span>
+                            </div>
+                        </div>
+                        <div class="result-card" id="card-result-2">
+                            <span class="result-label" id="label-result-2">Kelvin</span>
+                            <div class="result-value-group">
+                                <span class="result-value" id="val-result-2">--</span>
+                                <span class="result-symbol" id="sym-result-2">K</span>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </section>
+
+            <!-- Quick Info / Physical Limits -->
+            <footer class="card-footer">
+                <div class="reference-note">
+                    <span class="info-icon" aria-hidden="true">ℹ️</span>
+                    <span>Absolute Zero limits: <strong>0 K</strong> &bull; <strong>-273.15 °C</strong> &bull; <strong>-459.67 °F</strong></span>
+                </div>
+            </footer>
+        </main>
+
+        <footer class="app-footer">
+            <p>Prodigy InfoTech &bull; Software Development Internship</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
